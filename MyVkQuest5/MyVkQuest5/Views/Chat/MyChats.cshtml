@@ -1,0 +1,16 @@
+﻿@model IEnumerable<MyVkQuest5.Models.ChatModel>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <a class="btn bg-info w-100  m-2" asp-action="GoToChat" asp-controller="Chat" asp-route-id="@item.Id">@item.Title</a>
+            }
+
+        }
+    </div>
+    <div class="col-md-4"></div>
+</div>

@@ -1,0 +1,22 @@
+﻿<header>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MyVkQuest5</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                @*<a class="nav-link text-dark" asp-area="" asp-controller="Message" asp-action="Index">Messages</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Message" asp-action="Create">MessageCr</a>*@
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Home" asp-action="Index" id="usname" class="btn text-white">@User.Identity.Name</a>
+                    <a asp-controller="Account" asp-action="Logout" id="usname" class="btn text-white">Logout</a>
+                    <a asp-controller="Chat" asp-action="Mychats" id="usname" class="btn text-white">MyChats</a>
+                    <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="FindByName">FindUser</a>
+                }
+            </div>
+        </div>
+    </nav>
+</header>

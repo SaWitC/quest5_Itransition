@@ -1,0 +1,32 @@
+﻿@model MyVkQuest5.ViewModel.ChatVM
+
+@foreach (var item in Model.Messages)
+{
+<div class="card" style="width:auto;">
+    <div class="form-group">
+        @if (item.FromUser == User.Identity.Name)
+        {
+        <div class="card-body bg-primary btn-lg active w-100 h-auto" role="button" aria-pressed="true">
+            <button type="button" class="btn btn-secondary btn-lg active" data-bs-toggle="tooltip" data-bs-placement="right" title="From: @item.SentDate">
+                ?
+            </button>
+            <h5 class="card-text text-wrap">@item.FromUser</h5>
+            <p class="card-text text-wrap">@item.Message</p>
+        </div>
+        }
+        else
+        {
+        <div class="card-body bg-info btn-lg active w-100 h-auto" role="button" aria-pressed="true">
+            <button type="button" class="btn btn-secondary btn-lg active" data-bs-toggle="tooltip" data-bs-placement="right" title="From: @item.SentDate">
+                ?
+            </button>
+            <h5 class="card-text text-wrap">@item.FromUser</h5>
+            <p class="card-text text-wrap">@item.Message</p>
+        </div>
+
+        }
+
+       
+    </div>
+</div>
+}

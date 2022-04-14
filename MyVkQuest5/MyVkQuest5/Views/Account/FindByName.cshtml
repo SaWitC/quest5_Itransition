@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MyVkQuest5.Models.User>
+
+<div class="form-group">
+    <form method="get" asp-controller="Account" asp-action="FindByName">
+        <input type="text" name="username"/>
+        <input type="submit" value="Find"/>
+    </form>
+</div>
+
+<div id="scrolList">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <h3>@item.UserName</h3>
+            <a asp-action="Create" asp-controller="Chat" asp-route-User2="@item.UserName">sent Message</a>
+        }
+    }
+</div>
+
+
+<script>
+    function findUsers() {
+        var val = $("#username").val();
+        if (val != null) {
+            $.ajax({  
+                url: '@Url.Action("FindByName","Account")',
+                type: 'GET',
+                data: { username: val },
+                success: function (data) {
+                    if (data != '') {
+                        $("#scrolList").append(data);
+                    }
+                    $("div#loading").hide();
+                },
+                error: function (mess) {
+                    console.log("error");
+                    console.log(mess);
+                }
+            });
+        }
+    }
+</script>

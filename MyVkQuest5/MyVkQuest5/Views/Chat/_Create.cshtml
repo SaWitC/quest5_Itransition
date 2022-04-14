@@ -1,0 +1,9 @@
+﻿@model MyVkQuest5.ViewModel.WriteMessageVM
+
+<div>
+    <form method="post" asp-action="Create" asp-controller="Message">
+        <input asp-for="message"/>
+        <input asp-for="ChatId"/>
+        <input type="submit" value="Sent"/>
+    </form>
+</div>

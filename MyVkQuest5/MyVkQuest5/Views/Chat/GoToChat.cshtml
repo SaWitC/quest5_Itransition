@@ -1,0 +1,93 @@
+﻿@model MyVkQuest5.ViewModel.ChatVM
+
+<div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6" data-spy="scroll">
+
+
+        <div id="renderData" style="overflow: auto; height:650px">
+            @await Html.PartialAsync("_renderMessages.cshtml")
+        </div>
+        <h6>new messages</h6>
+        <div id="notify"></div>
+
+        @using (Html.BeginForm("Create", "Message", FormMethod.Post))
+        {
+            @*<input type="text" class="input-group" id="text" name="Message" />*@
+            <input hidden name="ChatId" id="id" value="@Model.ChatId" />
+            <input hidden name="userId" id="id" value="@ViewBag.interlocutor" />
+
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="Message" placeholder="Message" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <input class="btn btn-outline-secondary" type="submit" id="button-addon2" value="Sent" />
+            </div>
+        }
+
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+@*@foreach (var item in ViewBag.Clients)
+{
+    <h1>@item</h1>
+}*@
+
+
+@*<button onclick="sentMessage()">sent</button>
+
+<div id="users">
+
+</div>*@
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script src="~/microsoft-signalr/signalr.min.js"></script>
+<script>
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl("/chat")
+        .build();
+
+    // получение сообщения от сервера
+    hubConnection.on('Notify', function (message) {
+
+        //$("#renderData").append(data);
+        // создает элемент <p> для сообщения пользователя
+        let elem = document.createElement("p");
+        var elem2 = `<div class="card" style="width:auto;">
+    <div class="form-group">
+        
+        <div class="card-body bg-info btn-lg active w-100 h-auto" role="button" aria-pressed="true">
+            <button type="button" class="btn btn-secondary btn-lg active" data-bs-toggle="tooltip" data-bs-placement="right" title="From:">
+                ?
+            </button>
+            <h5 class="card-text text-wrap">user</h5>
+            <p class="card-text text-wrap">${message}</p>
+        </div>
+    </div>
+</div>`
+        elem.appendChild(document.createTextNode(message));
+
+        document.getElementById("notify").appendChild(elem);
+        $("#notify").html(elem2);
+
+
+    });
+    hubConnection.start();
+
+
+    hubConnection.on("UserConnected", function (connectionId) {
+        //$("#users").html();
+        console.log("connected " +connectionId)
+    });
+
+    hubConnection.on("UserConnected", function (connectionId) {
+        //$("#users").html();
+        console.log("Disconnected " +connectionId)
+    });
+</script>
+
+
+
+
+

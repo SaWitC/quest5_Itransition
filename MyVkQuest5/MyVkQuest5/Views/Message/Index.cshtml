@@ -1,0 +1,167 @@
+﻿@model IEnumerable<MyVkQuest5.Models.MessageModel>
+
+
+
+@*<div id="notify"></div>
+<div id="renderData">
+    @await Html.PartialAsync("_messages")
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script src="~/microsoft-signalr/signalr.min.js"></script>
+<script>
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl("/chat")
+        .build();
+
+    // получение сообщения от сервера
+    hubConnection.on('Notify', function (message) {
+
+        //$("#renderData").append(data);
+        // создает элемент <p> для сообщения пользователя
+        let elem = document.createElement("p");
+        elem.appendChild(document.createTextNode(message));
+
+        document.getElementById("notify").appendChild(elem);
+
+    });
+    hubConnection.start();
+</script>*@
+
+
+
+
+
+<!--<table>
+    <thead>
+        <tr>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+
+    </tbody>
+</table>
+
+<div id="scrolList">
+
+</div>
+
+<div id="AllMessage">
+<button onclick="LoadData()">Load</button>-->
+<!--</div>
+
+@*<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>*@
+
+<!--<script>
+    LoadData();
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl("/chat")
+        .build();
+
+    hubConnection.start();
+
+
+    hubConnection.on("Notify", function () {
+        LoadData()
+    });
+
+    function LoadData(){
+        var tr = '';
+
+        $.ajax({
+            url: "@Url.Action("GetMessages", "Message")",
+            method: "Get",
+            Success: (resul) => {
+                $.each(resul, (k,v) => {
+                    tr += `<tr><td>${v.Message}</td></tr>`
+                })
+                $("#tableBody").html(tr)
+                document.getElementById("scrolList").appendChild(tr);
+            },
+            error: (error) => {
+                console.log(error)
+                console.log("hello");
+            }
+        })
+    }
+
+</script>-->
+<!--<div class="col-md-12">
+    <form asp-action="Create" id="inputForm" data-ajax-begin="clearInputField"
+          data-ajax-complete="" data-ajax-failure="alert('Fail')"
+          data-ajax-success="sendMessage" data-ajax="true" data-ajax-method="POST">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-group">
+            <input name="Text" id="message" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Send" id="sendBtn" class="btn" />
+        </div>
+        <input type="hidden" name="username" />
+    </form>
+</div>
+<div id="chatroom"></div>-->
+@*<div id="inputForm">
+        <input type="text" id="message" />
+        <input type="button" id="sendBtn" value="Отправить" />
+    </div>
+    <div id="chatroom"></div>*@
+
+<!--<script>
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl("/Message/Index")
+        .build();
+
+    hubConnection.on("reciveMessage", function (data) {
+
+        let elem = document.createElement("p");
+        elem.appendChild(document.createTextNode(data));
+        let firstElem = document.getElementById("chatroom").firstChild;
+        document.getElementById("chatroom").insertBefore(elem, firstElem);
+
+    });
+
+    document.getElementById("sendBtn").addEventListener("click", function (e) {
+        let message = document.getElementById("message").value;
+        hubConnection.invoke("SendMessage", message);
+    });
+
+    hubConnection.start();
+</script>-->
+@*<script>
+        const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/Message/Index")
+            .build();
+
+        hubConnection.on("reciveMessage", addMessageToChat);
+
+        hubConnection.start()
+            .catch(error => {
+                console.error(error.message);
+            });
+
+        function SendMessageToHub(message) {
+            hubConnection.invoke('SendMessage',message)
+        }
+
+
+
+
+            let elem = document.createElement("p");
+            elem.appendChild(document.createTextNode(data));
+            let firstElem = document.getElementById("chatroom").firstChild;
+            document.getElementById("chatroom").insertBefore(elem, firstElem);
+
+
+        document.getElementById("sendBtn").addEventListener("click", function (e) {
+            let message = document.getElementById("message").value;
+            hubConnection.invoke("Send", message);
+        });
+
+        hubConnection.start();
+    </script>*@
